@@ -147,7 +147,7 @@ You need to keep in mind several things when using properties in your class.
 ### Visibility
 
 If your property is public and read-only, make sure it always has the right value
-(especially in UIViewController subclasses, see below).
+(especially in _UIViewController_ subclasses, see below).
 
 ### Weak, copy or strong?
 
