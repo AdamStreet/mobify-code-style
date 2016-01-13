@@ -364,6 +364,7 @@ MYClass.m
 Objective-C using the old-school C-type error handling. If a method provides error, that does with an in&out parameter + a BOOL return value.
 
 Example:
+
 	- (BOOL)openFile:(NSError * __autoreleasing *)error;	// YES, if the file is opened successfully (and error is nil) or NO as return value plus an NSError instance as error.
 
 How to implement?
