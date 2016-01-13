@@ -1,15 +1,17 @@
-# Introduction
+# Objective-c 
+
+## Introduction
 
 This document is useful if you work on a huge project and want to keep it readable, clean & maintainable.
 Also helps you to avoid common mistakes (I have found since I started my career) and shows some best-practices.
 
-# Class naming convention
+## Class naming convention
 
 Use class prefixes instead of just plain names. This makes your classes more unique - imagine if everybody would use plain names: you couldn't import a third party framework without conflict.
 > You can set up the default prefix in Xcode: select the project file in the Navigator (file browser, left side),
 > select File inspector tab and under Project Document / Class Prefix.
 
-# Markers (pragma mark)
+## Markers (pragma mark)
 
 These markers can help your (and an other developer's) work to find methods.
 
@@ -42,7 +44,7 @@ or embed markers:
 
 `#pragma mark [sub-title]`
 
-# Naming global constants
+## Naming global constants
 
 Just like notification names, enum types... etc. They need to reflect to the container class, so 
 it should use it as a base. This help the user of this class to use code completion without checking the classes header.
@@ -62,7 +64,7 @@ Example:
 	@interface MyClass : ...
 
 
-# Asserts
+## Asserts
 
 Use asserts to keep thigt conditions in DEBUG mode. It will help you to find programming mistakes and/or
 invalid states in runtime.
@@ -95,7 +97,7 @@ Handy, isn't it?
 > This would help you when compiling the app instead of getting exceptions in runtime, 
 > but it's a real pain in the ass to add this to your existing codebase.
 
-# Initializers
+## Initializers
 
 Always check the header for designated initializers! Override, or use it in your implementation.
 
@@ -138,16 +140,16 @@ MYCar.m
 
 	@end
 
-# Properties
+## Properties
 
 You need to keep in mind several things when using properties in your class.
 
-## Visibility
+### Visibility
 
 If your property is public and read-only, make sure it always has the right value
 (especially in UIViewController subclasses, see below).
 
-## Weak, copy or strong?
+### Weak, copy or strong?
 
 In general: 
 
@@ -157,14 +159,14 @@ In general:
 
 * Strong for everything else.
 
-## Local variable vs property
+### Local variable vs property
 
 Local variables are slowly being dropped from the framework - I recommend to declare properties all the time
 and use as _self.myProperty_ instead of it's local variable _\_myProperty_.
 
 > Use _\_myPropertyName_ only in setters - especially after you overrode the default one!
 
-# Constants vs dedicated methods
+## Constants vs dedicated methods
 
 Let's see an example what I mean: there's an expression (or condition) I would like to use, 
 but I'm not that lazy so I added an in-line comment:
@@ -191,7 +193,7 @@ just from only 1 place. Makes your implementation file longer and a bit more exp
 		return (0 < [self.numberOfItems count]);
 	}
 
-# Singletons
+## Singletons
 
 You should create a singleton when your class shouldn't be instantiated more than once.
 
@@ -275,7 +277,7 @@ the first access (which is not defined).
 	...
 	@end
 
-# Notification handlers
+## Notification handlers
 
 Subscribe notifications for your instance but don't forget to unsubscribe. 
 The last place you can do that is the _-dealloc_.
@@ -302,7 +304,7 @@ The last place you can do that is the _-dealloc_.
 > The recommended naming is _-handle[notificatio_name_without_prefix]:_ and always add the 
 > parameter - even if it's not in use.
 
-# Key-value observers' handlers
+## Key-value observers' handlers
 
 Use the context parameter when subscribing for a KVO.
 
@@ -357,7 +359,7 @@ MYClass.m
 		...
 	}
 
-# Error handling
+## Error handling
 
 Objective-C using the old-school C-type error handling. If a method provides error, that does with an in&out parameter + a BOOL return value.
 
@@ -385,7 +387,7 @@ Example:
 
 > Avoid to throw exception! The debugger will pause the running even you have a _@try_ around that point.
 
-# Metadata vs model objects
+## Metadata vs model objects
 
 Create objects from metadata as soon as possible!
 
@@ -425,7 +427,7 @@ MYBook.h
 
 	@end
 
-# Macros < C-functions
+## Macros < C-functions
 
 [Macros are dangerous](http://stackoverflow.com/questions/14041453/why-are-preprocessor-macros-evil-and-what-are-the-alternatives) but those easily can be replaced with C functions.
 
@@ -438,7 +440,7 @@ Replace with:
 
 
 
-# [Lambda expressions - alias "blocks"](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Blocks/index.html)
+## [Lambda expressions - alias "blocks"](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Blocks/index.html)
 
 Use blocks instead of delegate callbacks for singleton classes.
 
@@ -453,9 +455,9 @@ Use blocks instead of delegate callbacks for singleton classes.
 		}
 	}];
 
-# Some useful UIKit patterns
+## Some useful UIKit patterns
 
-## Properties of UIViewController
+### Properties of UIViewController
 
 Let's see this example:
 
@@ -506,12 +508,12 @@ MYViewController.m
 > the first use of the view. If it happend in the _-initWithNibName:bundle:_ we would create a _UIView_
 > instance and store in the memory without knowing it will be used or not.
 
-## View lifecycle
+### View lifecycle
 
 In a UIView subclass, all the subviews should be created in the _-initWithFrame:_ initializer. 
 If the view uses _NSLayoutConstraints_ to layout it's subviews, those should be set in _-layoutSubviews_.
 
-## Nib/Xib/Storyboard vs pure code
+### Nib/Xib/Storyboard vs pure code
 
 There are 2 kinds of people: who think building in Interface Builder is a good thing and who don't.
 I made several performance tests and the conclusion was the code-base UI is faster but slower to implement, 
