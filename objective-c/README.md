@@ -280,7 +280,8 @@ the first access (which is not defined).
 ## Notification handlers
 
 Subscribe notifications for your instance but don't forget to unsubscribe. 
-The last place you can do that is the _-dealloc_.
+The last place you can do that is the _-dealloc_, but if it's just a one-timer it should be removed in
+the handler method.
 
 	- (id)init
 	{
@@ -298,6 +299,18 @@ The last place you can do that is the _-dealloc_.
 	- (void)dealloc
 	{
 		[[NSNotificationCenter defaultCenter] removeObserver:self];
+	}
+    
+	#pragma mark - Notification handlers
+
+	- (void)handleOtherClassDidSomethingNotification:(NSNotification *)notification
+	{
+		// If we need this just once:
+		//[[NSNotificationCenter defaultCenter] removeObserver:self
+		//name:MYOtherClassDidSomethingNotification
+		//object:nil];
+
+		...
 	}
 
 > Use dedicated methods for handling a notification! Avoid to bind methods like _-clearTableView_.
