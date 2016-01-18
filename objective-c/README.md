@@ -212,7 +212,7 @@ Some examples:
 > work in your subclass. You need to write the _+sharedInstance_ manually and 
 > keep your (static) _sharedInstance_ in your implementation
 
-If your singleton observes a property or reacts on a notification an initializer shoud be implemented which
+If your singleton observes a property or reacts on a notification an initializer should be implemented which
 must be called before the first use. Otherwise the notifications won't be handled in the singleton just after
 the first access (which is not defined).
 
@@ -301,7 +301,7 @@ The last place you can do that is the _-dealloc_.
 	}
 
 > Use dedicated methods for handling a notification! Avoid to bind methods like _-clearTableView_.
-> The recommended naming is _-handle[notificatio_name_without_prefix]:_ and always add the 
+> The recommended naming is _-handle[notification_name_without_prefix]:_ and always add the 
 > parameter - even if it's not in use.
 
 ## Key-value observers' handlers
